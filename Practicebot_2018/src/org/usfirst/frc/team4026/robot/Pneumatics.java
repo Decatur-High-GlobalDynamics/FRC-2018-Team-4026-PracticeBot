@@ -38,8 +38,8 @@ public class Pneumatics extends Subsystem{
 	}
 	@Override
 	public int shutdown() {
-		// TODO Auto-generated method stub
-		return 0;
+		grabber.set(Value.kReverse);
+		return 1;
 	}
 	
 
