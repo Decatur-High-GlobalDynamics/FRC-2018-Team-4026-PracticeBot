@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.util.logging.Logger;
+import java.util.logging.Level;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -19,6 +21,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends IterativeRobot {
+	
+	//SonarLint: Use Logger instead of System.out.println
+	private static final Logger LOGGER = Logger.getLogger(Robot.class.getName());
 	
 	private static final String K_DEFAULT_AUTO = "Default";
 	private static final String K_CUSTOM_AUTO = "My Auto";
@@ -60,7 +65,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		mAutoSelected = mChooser.getSelected();
 		// autoSelected = SmartDashboard.getString("Auto Selector", defaultAuto);
-		System.out.println("Auto selected: " + mAutoSelected); //Replace System.out with logger.log
+		LOGGER.log(Level.ALL, "Auto selected: {0}", mAutoSelected); //Replace System.out with logger.log
 	}
 
 	/**
