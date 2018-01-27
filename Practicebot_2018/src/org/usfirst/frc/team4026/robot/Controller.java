@@ -25,13 +25,7 @@ public class Controller extends Subsystem{
 		return driveGamepad.getThrottle();
 	}
 	public boolean getRawButton(int button) {
-		if (driveGamepad.getRawButton(button)){
-			return true;
-		}
-		else {
-		
-		return false;
-		}
+		return (driveGamepad.getRawButton(button))
 	}
 	@Override
 	public int shutdown() {
