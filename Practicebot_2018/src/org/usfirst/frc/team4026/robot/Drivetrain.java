@@ -2,7 +2,7 @@ package org.usfirst.frc.team4026.robot;
 
 import edu.wpi.first.wpilibj.Talon;
 
-public class Drivetrain extends Subsystem{
+public class Drivetrain implements Subsystem{
 	private static final int LEFT = 0;
 	private static final int RIGHT = 1;
 	

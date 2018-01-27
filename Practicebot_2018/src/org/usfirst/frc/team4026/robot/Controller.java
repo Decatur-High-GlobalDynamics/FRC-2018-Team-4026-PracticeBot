@@ -2,7 +2,7 @@ package org.usfirst.frc.team4026.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-public class Controller extends Subsystem{
+public class Controller implements Subsystem{
 	
 	Joystick driveGamepad;
 	boolean isInitialized = false;
