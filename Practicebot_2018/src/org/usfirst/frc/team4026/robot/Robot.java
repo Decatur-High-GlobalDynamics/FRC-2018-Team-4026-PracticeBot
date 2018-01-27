@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.util.logging.Logger;
+import java.util.logging.Level;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -20,8 +22,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	
-	private static final String K_DEFAULT_AUTO = "Default";
-	private static final String K_CUSTOM_AUTO = "My Auto";
+	//SonarLint: Use Logger instead of System.out.println
+	private static final Logger LOGGER = Logger.getLogger(Robot.class.getName());
+	
+	private static final String K_AUTO_DEFAULT = "Default";
+	private static final String K_AUTO_CUSTOM = "My Auto";
 	private String mAutoSelected;
 	private SendableChooser<String> mChooser = new SendableChooser<>();
 	Drivetrain drivetrain = new Drivetrain();
@@ -35,8 +40,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		mChooser.addDefault("Default Auto", K_DEFAULT_AUTO);
-		mChooser.addObject(K_CUSTOM_AUTO, K_CUSTOM_AUTO);
+		mChooser.addDefault("Default Auto", K_AUTO_DEFAULT);
+		mChooser.addObject(K_AUTO_CUSTOM, K_AUTO_CUSTOM);
 		SmartDashboard.putData("Auto choices", mChooser);
 		drivetrain.init();
 		joystick.init();
@@ -59,8 +64,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		mAutoSelected = mChooser.getSelected();
-		// autoSelected = SmartDashboard.getString("Auto Selector", defaultAuto);
-		System.out.println("Auto selected: " + mAutoSelected); //Replace System.out with logger.log
+		LOGGER.log(Level.ALL, "Auto selected: {0}", mAutoSelected);
 	}
 
 	/**
@@ -69,14 +73,21 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		switch (mAutoSelected) {
-			case K_CUSTOM_AUTO:
-				// Put custom auto code here
+			case K_AUTO_CUSTOM:
+				autoCustom();// Put custom auto code here
 				break;
-			case K_DEFAULT_AUTO:
+			case K_AUTO_DEFAULT:
 			default:
-				// Put default auto code here
+				autoDefault();// Put default auto code here
 				break;
 		}
+	}
+	
+	public void autoCustom() {
+	//Placeholder for autoCustom	
+	}
+	public void autoDefault() {
+	//Placeholder for autoDefault	
 	}
 
 	/**
