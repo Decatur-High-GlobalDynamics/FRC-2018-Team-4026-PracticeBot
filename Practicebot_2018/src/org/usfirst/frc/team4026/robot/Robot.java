@@ -20,10 +20,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	
-	private static final String kDefaultAuto = "Default";
-	private static final String kCustomAuto = "My Auto";
-	private String m_autoSelected;
-	private SendableChooser<String> m_chooser = new SendableChooser<>();
+	private static final String K_DEFAULT_AUTO = "Default";
+	private static final String K_CUSTOM_AUTO = "My Auto";
+	private String mAutoSelected;
+	private SendableChooser<String> mChooser = new SendableChooser<>();
 	Drivetrain drivetrain = new Drivetrain();
 	Controller joystick = new Controller();
 	Pneumatics pneumatics = new Pneumatics();
@@ -35,9 +35,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		m_chooser.addDefault("Default Auto", kDefaultAuto);
-		m_chooser.addObject("My Auto", kCustomAuto);
-		SmartDashboard.putData("Auto choices", m_chooser);
+		mChooser.addDefault("Default Auto", K_DEFAULT_AUTO);
+		mChooser.addObject(K_CUSTOM_AUTO, K_CUSTOM_AUTO);
+		SmartDashboard.putData("Auto choices", mChooser);
 		drivetrain.init();
 		joystick.init();
 		pneumatics.init();
@@ -58,10 +58,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autoSelected = m_chooser.getSelected();
-		// autoSelected = SmartDashboard.getString("Auto Selector",
-		// defaultAuto);
-		System.out.println("Auto selected: " + m_autoSelected);
+		mAutoSelected = mChooser.getSelected();
+		// autoSelected = SmartDashboard.getString("Auto Selector", defaultAuto);
+		System.out.println("Auto selected: " + mAutoSelected); //Replace System.out with logger.log
 	}
 
 	/**
@@ -69,11 +68,11 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		switch (m_autoSelected) {
-			case kCustomAuto:
+		switch (mAutoSelected) {
+			case K_CUSTOM_AUTO:
 				// Put custom auto code here
 				break;
-			case kDefaultAuto:
+			case K_DEFAULT_AUTO:
 			default:
 				// Put default auto code here
 				break;
@@ -94,6 +93,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+		//not needed yet
 	}
 	
 }
