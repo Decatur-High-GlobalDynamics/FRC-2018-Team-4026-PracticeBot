@@ -64,7 +64,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		mAutoSelected = mChooser.getSelected();
-		LOGGER.log(Level.ALL, "Auto selected: {0}", mAutoSelected); //Replace System.out with logger.log
+		LOGGER.log(Level.ALL, "Auto selected: {0}", mAutoSelected);
 	}
 
 	/**
