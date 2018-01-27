@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
-public class Pneumatics extends Subsystem{
+public class Pneumatics implements Subsystem{
 	
 	DoubleSolenoid grabber;
 	Compressor compressor;
