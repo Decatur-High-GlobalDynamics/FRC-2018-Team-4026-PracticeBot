@@ -22,11 +22,13 @@ public class Robot extends IterativeRobot {
 	
 	private static final String kDefaultAuto = "Default";
 	private static final String kCustomAuto = "My Auto";
+	boolean isGyroresetTelop;
 	private String m_autoSelected;
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
 	Drivetrain drivetrain = new Drivetrain();
 	Controller joystick = new Controller();
 	Pneumatics pneumatics = new Pneumatics();
+	Sensors sensors = new Sensors();
 
 
 	/**
@@ -41,7 +43,7 @@ public class Robot extends IterativeRobot {
 		drivetrain.init();
 		joystick.init();
 		pneumatics.init();
-
+		sensors.init();
 		
 	}
 
@@ -85,8 +87,21 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() { 
-	drivetrain.tankDrive(joystick);
-	pneumatics.grabberPiston(1,3,joystick);
+
+		if(!joystick.getRawButton(8) && !drivetrain.shouldIHelpDriverDriveStraight())
+		{
+			drivetrain.tankDrive(joystick);
+			pneumatics.grabberPiston(1,3,joystick);
+			isGyroresetTelop = false;
+		}
+		else {
+			if(isGyroresetTelop == false)
+			{
+				sensors.gyro.reset();
+				isGyroresetTelop = true;
+			}
+		drivetrain.keepDriveStraight(joystick, 0 , sensors.gyro);
+		}
 	}
 
 	/**
