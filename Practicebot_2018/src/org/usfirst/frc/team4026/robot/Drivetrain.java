@@ -31,12 +31,28 @@ public class Drivetrain implements Subsystem{
 	{
 		double left  = driveGamepad.getLeft();
 		double right = driveGamepad.getRight();
+		//Cut speed in half
+		if(driveGamepad.getRawButton(7))
+		{
+			right /= 2.0;
+			left /= 2.0;
+		}
 		setDriveMotors(left, right);
 	}
 	void setDriveMotors(double leftPower2, double rightPower2)
 	{
 			leftDriveMotor.set(-rightPower2);
 			rightDriveMotor.set(leftPower2);
+	}
+	public boolean shouldIHelpDriverDriveStraight() {
+		return false;
+	}
+	double batteryCompensationPct()
+	{
+		double batteryScaleFactor = 0.0;
+		batteryScaleFactor = MAX_BATTERY / RobotController.getBatteryVoltage();
+
+		return batteryScaleFactor;
 	}
 	public void keepDriveStraight(Controller driveGamepad, double targetAngle, Gyro gyro) {
 		
@@ -70,16 +86,6 @@ public class Drivetrain implements Subsystem{
 			leftDriveMotor.set(-leftDriveVel * batteryCompensationPct());
 			rightDriveMotor.set(rightDriveVel * batteryCompensationPct());
 		}
-	}
-	public boolean shouldIHelpDriverDriveStraight() {
-		return false;
-	}
-	double batteryCompensationPct()
-	{
-		double batteryScaleFactor = 0.0;
-		batteryScaleFactor = MAX_BATTERY / RobotController.getBatteryVoltage();
-
-		return batteryScaleFactor;
 	}
 	private void stopDrive(){
 		leftDriveMotor.set(0);
