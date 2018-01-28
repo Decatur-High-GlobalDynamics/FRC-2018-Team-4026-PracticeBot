@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import java.util.logging.Logger;
-import java.util.logging.Level;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -22,21 +20,11 @@ import java.util.logging.Level;
  */
 public class Robot extends IterativeRobot {
 	
-<<<<<<< HEAD
 	private static final String kDefaultAuto = "Default";
 	private static final String kCustomAuto = "My Auto";
 	boolean isGyroresetTelop;
 	private String m_autoSelected;
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
-=======
-	//SonarLint: Use Logger instead of System.out.println
-	private static final Logger LOGGER = Logger.getLogger(Robot.class.getName());
-	
-	private static final String K_AUTO_DEFAULT = "Default";
-	private static final String K_AUTO_CUSTOM = "My Auto";
-	private String mAutoSelected;
-	private SendableChooser<String> mChooser = new SendableChooser<>();
->>>>>>> origin/master
 	Drivetrain drivetrain = new Drivetrain();
 	Controller joystick = new Controller();
 	Pneumatics pneumatics = new Pneumatics();
@@ -73,7 +61,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		mAutoSelected = mChooser.getSelected();
-		LOGGER.log(Level.ALL, "Auto selected: {0}", mAutoSelected);
+		System.out.println("Auto selected: " + m_autoSelected);
 	}
 
 	/**
