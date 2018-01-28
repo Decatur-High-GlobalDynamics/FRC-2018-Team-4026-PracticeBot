@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.util.logging.Logger;
+import java.util.logging.Level;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -20,11 +22,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	
+<<<<<<< HEAD
 	private static final String kDefaultAuto = "Default";
 	private static final String kCustomAuto = "My Auto";
 	boolean isGyroresetTelop;
 	private String m_autoSelected;
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
+=======
+	//SonarLint: Use Logger instead of System.out.println
+	private static final Logger LOGGER = Logger.getLogger(Robot.class.getName());
+	
+	private static final String K_AUTO_DEFAULT = "Default";
+	private static final String K_AUTO_CUSTOM = "My Auto";
+	private String mAutoSelected;
+	private SendableChooser<String> mChooser = new SendableChooser<>();
+>>>>>>> origin/master
 	Drivetrain drivetrain = new Drivetrain();
 	Controller joystick = new Controller();
 	Pneumatics pneumatics = new Pneumatics();
@@ -37,9 +49,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		m_chooser.addDefault("Default Auto", kDefaultAuto);
-		m_chooser.addObject("My Auto", kCustomAuto);
-		SmartDashboard.putData("Auto choices", m_chooser);
+		mChooser.addDefault("Default Auto", K_AUTO_DEFAULT);
+		mChooser.addObject(K_AUTO_CUSTOM, K_AUTO_CUSTOM);
+		SmartDashboard.putData("Auto choices", mChooser);
 		drivetrain.init();
 		joystick.init();
 		pneumatics.init();
@@ -60,10 +72,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autoSelected = m_chooser.getSelected();
-		// autoSelected = SmartDashboard.getString("Auto Selector",
-		// defaultAuto);
-		System.out.println("Auto selected: " + m_autoSelected);
+		mAutoSelected = mChooser.getSelected();
+		LOGGER.log(Level.ALL, "Auto selected: {0}", mAutoSelected);
 	}
 
 	/**
@@ -71,15 +81,22 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		switch (m_autoSelected) {
-			case kCustomAuto:
-				// Put custom auto code here
+		switch (mAutoSelected) {
+			case K_AUTO_CUSTOM:
+				autoCustom();// Put custom auto code here
 				break;
-			case kDefaultAuto:
+			case K_AUTO_DEFAULT:
 			default:
-				// Put default auto code here
+				autoDefault();// Put default auto code here
 				break;
 		}
+	}
+	
+	public void autoCustom() {
+	//Placeholder for autoCustom	
+	}
+	public void autoDefault() {
+	//Placeholder for autoDefault	
 	}
 
 	/**
@@ -109,6 +126,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+		//not needed yet
 	}
 	
 }
