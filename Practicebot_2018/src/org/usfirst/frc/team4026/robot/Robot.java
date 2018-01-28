@@ -20,11 +20,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	
-	private static final String kDefaultAuto = "Default";
-	private static final String kCustomAuto = "My Auto";
+	private static final String K_AUTO_DEFAULT = "Default";
+	private static final String K_AUTO_CUSTOM = "My Auto";
 	boolean isGyroresetTelop;
-	private String m_autoSelected;
-	private SendableChooser<String> m_chooser = new SendableChooser<>();
+	private String mAutoSelected;
+	private SendableChooser<String> mChooser = new SendableChooser<>();
 	Drivetrain drivetrain = new Drivetrain();
 	Controller joystick = new Controller();
 	Pneumatics pneumatics = new Pneumatics();
@@ -61,7 +61,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		mAutoSelected = mChooser.getSelected();
-		System.out.println("Auto selected: " + m_autoSelected);
+		System.out.println("Auto selected: " + mAutoSelected);
 	}
 
 	/**
