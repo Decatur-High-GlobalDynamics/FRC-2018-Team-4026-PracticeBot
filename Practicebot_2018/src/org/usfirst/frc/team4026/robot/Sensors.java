@@ -22,17 +22,17 @@ public class Sensors implements Subsystem{
 		return 1;
 	}
 	class Gyro {
-		AnalogGyro gyro;
+		AnalogGyro theGyro;
 
 		public void init(int slot){
-			gyro = new AnalogGyro(slot);
-			gyro.calibrate();
+			theGyro = new AnalogGyro(slot);
+			theGyro.calibrate();
 		}
 		public double getAngle() {
-			return gyro.getAngle();
+			return theGyro.getAngle();
 		}
 		public void reset() {
-			gyro.reset();
+			theGyro.reset();
 		}
 	}
 }

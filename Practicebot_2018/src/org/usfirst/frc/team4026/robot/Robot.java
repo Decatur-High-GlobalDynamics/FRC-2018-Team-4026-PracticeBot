@@ -100,7 +100,7 @@ public class Robot extends IterativeRobot {
 			isGyroresetTelop = false;
 		}
 		else {
-			if(isGyroresetTelop == false)
+			if(!isGyroresetTelop)
 			{
 				sensors.gyro.reset();
 				isGyroresetTelop = true;
