@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import java.util.logging.Logger;
-import java.util.logging.Level;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -22,16 +20,15 @@ import java.util.logging.Level;
  */
 public class Robot extends IterativeRobot {
 	
-	//SonarLint: Use Logger instead of System.out.println
-	private static final Logger LOGGER = Logger.getLogger(Robot.class.getName());
-	
 	private static final String K_AUTO_DEFAULT = "Default";
 	private static final String K_AUTO_CUSTOM = "My Auto";
+	boolean isGyroresetTelop;
 	private String mAutoSelected;
 	private SendableChooser<String> mChooser = new SendableChooser<>();
 	Drivetrain drivetrain = new Drivetrain();
 	Controller joystick = new Controller();
 	Pneumatics pneumatics = new Pneumatics();
+	Sensors sensors = new Sensors();
 
 
 	/**
@@ -46,7 +43,7 @@ public class Robot extends IterativeRobot {
 		drivetrain.init();
 		joystick.init();
 		pneumatics.init();
-
+		sensors.init();
 		
 	}
 
@@ -64,7 +61,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		mAutoSelected = mChooser.getSelected();
-		LOGGER.log(Level.ALL, "Auto selected: {0}", mAutoSelected);
+		System.out.println("Auto selected: " + mAutoSelected);
 	}
 
 	/**
@@ -95,8 +92,21 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() { 
-	drivetrain.tankDrive(joystick);
-	pneumatics.grabberPiston(1,3,joystick);
+
+		if(!joystick.getRawButton(8) && !drivetrain.shouldIHelpDriverDriveStraight())
+		{
+			drivetrain.tankDrive(joystick);
+			pneumatics.grabberPiston(1,3,joystick);
+			isGyroresetTelop = false;
+		}
+		else {
+			if(isGyroresetTelop == false)
+			{
+				sensors.gyro.reset();
+				isGyroresetTelop = true;
+			}
+		drivetrain.keepDriveStraight(joystick, 0 , sensors.gyro);
+		}
 	}
 
 	/**
