@@ -49,10 +49,7 @@ public class Drivetrain implements Subsystem{
 	}
 	double batteryCompensationPct()
 	{
-		double batteryScaleFactor = 0.0;
-		batteryScaleFactor = MAX_BATTERY / RobotController.getBatteryVoltage();
-
-		return batteryScaleFactor;
+		return MAX_BATTERY / RobotController.getBatteryVoltage();
 	}
 	public void keepDriveStraight(Controller driveGamepad, double targetAngle, Gyro gyro) {
 		
@@ -62,7 +59,8 @@ public class Drivetrain implements Subsystem{
 		double leftDriveVel = avgStick;
 		double rightDriveVel = avgStick;
 
-		double error = 0, correctionFactor;
+		double error = 0;
+		double correctionFactor;
 		error = targetAngle - gyro.getAngle();
 		correctionFactor = (error/75.0);
 
