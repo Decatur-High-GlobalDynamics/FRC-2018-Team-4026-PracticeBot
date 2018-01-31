@@ -72,7 +72,8 @@ public class Drivetrain implements Subsystem{
 	}
 
 	public void keepDriveStraight(Controller driveGamepad, double leftDriveVel, double rightDriveVel, double targetAngle) 
-	{
+	{	
+		double error = 0, correctionFactor;
 		error = targetAngle - gyro.getAngle();
 		correctionFactor = (error/75.0);
 
